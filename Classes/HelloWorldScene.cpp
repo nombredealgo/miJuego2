@@ -2,6 +2,7 @@
 #include "puffer.h"
 #include "anubis.h"
 #include "vida.h"
+#include "GameOverScene.h"
 
 USING_NS_CC;
 
@@ -85,8 +86,8 @@ bool HelloWorld::init()
 		case EventKeyboard::KeyCode::KEY_A:
 			
 			if (agachadoactivo == false){				
-  			    idle->removeFromParentAndCleanup(true);
-				idle->release();
+  			    idle->removeFromParentAndCleanup(TRUE);
+				//idle->release();
 
 				auto agachado = puffer::createAnimation(2);
 				addChild(agachado);
@@ -99,8 +100,8 @@ bool HelloWorld::init()
 				vidaanoobis->setScaleY(vidaene);
 				vidaanoobis->setPosition(430,hpanoobisY);
 
-				idle->removeFromParentAndCleanup(true);
-				idle->release();
+				idle->removeFromParentAndCleanup(TRUE);
+				//idle->release();
 
 				auto patada = puffer::createAnimation(1);
 				addChild(patada);
@@ -113,8 +114,8 @@ bool HelloWorld::init()
 
 		case EventKeyboard::KeyCode::KEY_S:
 			if (patadavolac == false){				
-				idle->removeFromParentAndCleanup(true);
-				idle->release();
+				idle->removeFromParentAndCleanup(TRUE);
+				//idle->release();
 
 				auto patadavol = puffer::createAnimation(5);
 				addChild(patadavol);
@@ -128,8 +129,8 @@ bool HelloWorld::init()
 			break;
 		 case EventKeyboard::KeyCode::KEY_D:
 			if (puñoactivo == false){
-				idle->removeFromParentAndCleanup(true);
-				idle->release();
+				idle->removeFromParentAndCleanup(TRUE);
+				//idle->release();
 
 				auto puñetazo = puffer::createAnimation(3);
 				addChild(puñetazo);
@@ -143,8 +144,8 @@ bool HelloWorld::init()
 			break;
 		  case EventKeyboard::KeyCode::KEY_F:
 			if (patada2activa == false){				
-				idle->removeFromParentAndCleanup(true);
-				idle->release();
+				idle->removeFromParentAndCleanup(TRUE);
+				//idle->release();
 
 				auto patadaup = puffer::createAnimation(4);
 				addChild(patadaup);
@@ -173,7 +174,7 @@ void HelloWorld::nomuerto(float dt){
 	if (contador%3==0){
 		random = rand () % 3;
 
-		anoobis->removeFromParentAndCleanup(true);
+		anoobis->removeFromParentAndCleanup(TRUE);
 		anoobis->release();
 
 		auto anoobismovimiento = anubis::createAnimation(random,load);
@@ -181,7 +182,7 @@ void HelloWorld::nomuerto(float dt){
 
 		if (load == false){
 			vidapuf = vidapuf-21;
-			hpapufY = hpapufY - 21;
+			hpapufY = hpapufY -21;
 			vidapuffer->setScaleY(vidapuf);
 			vidapuffer->setPosition(30, hpapufY);
 			
@@ -195,6 +196,10 @@ void HelloWorld::update(float dt){
 	
 	contador++;
 	CCLOG("%d",contador);
+	if (vidapuf == 0) {
+		auto scene = GameOverScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	}
 
 }
 
@@ -219,3 +224,4 @@ void HelloWorld::loadchange(float dt){
 		patadavolac=false;
 		}
 }
+
